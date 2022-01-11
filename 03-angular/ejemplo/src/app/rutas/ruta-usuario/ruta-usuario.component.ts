@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserJPHService} from '../../servicios/http/user-jph.service';
 
 @Component({
@@ -9,20 +9,21 @@ import {UserJPHService} from '../../servicios/http/user-jph.service';
 export class RutaUsuarioComponent implements OnInit {
 
   constructor(
-    private readonly userJphService:UserJPHService,
-  ) { }
+    private readonly userJphService: UserJPHService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.userJphService
       .buscarTodos()
-      .subscribe(
-        (datos)=>{ // try then
-          console.log({datos});
-        },
-        (error)=>{ // catch
-          console.error({error});
+      .subscribe({
+          next: (datos) => { // try then
+            console.log({datos});
+          },
+          error: (error) => { // catch
+            console.error({error});
+          },
         }
       )
   }
-
 }
