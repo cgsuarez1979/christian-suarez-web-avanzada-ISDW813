@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserJPHService} from '../../servicios/http/user-jph.service';
+import {UserJphInterface} from '../../servicios/http/interfaces/user-jph.interface';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-ruta-usuario',
@@ -7,18 +9,39 @@ import {UserJPHService} from '../../servicios/http/user-jph.service';
   styleUrls: ['./ruta-usuario.component.scss']
 })
 export class RutaUsuarioComponent implements OnInit {
-
+  arreglo: UserJphInterface[] = [];
+  buscarUsuario = '';
   constructor(
     private readonly userJphService: UserJPHService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+    this.activatedRoute
+      .queryParams
+      .subscribe(
+        (queryParams)=>{
+          this.buscarUsuario = queryParams['name']
+          this.buscarUsuarios();
+        }
+      )
+
+    // this.router.navigate(['/app','usuario'], {queryParams:{
+    //     name:'asdasd'
+    //   }})
+    // this.buscarUsuarios();
+  }
+  buscarUsuarios(){
     this.userJphService
-      .buscarTodos()
+      .buscarTodos({
+        name: this.buscarUsuario
+      })
       .subscribe({
           next: (datos) => { // try then
-            console.log({datos});
+            this.arreglo = datos;
+            this.buscarUsuario = '';
           },
           error: (error) => { // catch
             console.error({error});
@@ -26,4 +49,5 @@ export class RutaUsuarioComponent implements OnInit {
         }
       )
   }
+  gestionarUsuario(idUsuario:number){}
 }
