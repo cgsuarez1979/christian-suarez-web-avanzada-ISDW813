@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class RutaUsuarioComponent implements OnInit {
   arreglo: UserJphInterface[] = [];
   buscarUsuario = '';
+
   constructor(
     private readonly userJphService: UserJPHService,
     private readonly router: Router,
@@ -19,21 +20,39 @@ export class RutaUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute
-      .queryParams
-      .subscribe(
-        (queryParams)=>{
-          this.buscarUsuario = queryParams['name']
-          this.buscarUsuarios();
-        }
-      )
+    const parametrosConsulta$ = this.activatedRoute
+      .queryParams;
+    // ?nombre=Adrian&apellido=Eguez
+    parametrosConsulta$
+      .subscribe(// AQUI EMPIEZA A EJECUTARSE EL OBSERVABLE
+        {
+          next: (queryParams) => { // TRY
+            console.log(queryParams);
+            this.buscarUsuario = queryParams['name'];
+            this.buscarUsuarios();
+          },
+          error: () => { // Catch
 
-    // this.router.navigate(['/app','usuario'], {queryParams:{
-    //     name:'asdasd'
-    //   }})
-    // this.buscarUsuarios();
+          },
+          complete: () => { // Finally
+
+          }
+        }
+      );
   }
-  buscarUsuarios(){
+
+  actualizarParametrosDeConsulta() {
+    this.router
+      .navigate(
+        ['/app', 'usuario'], // armamos la URL /app/usuario
+        {
+          queryParams: {
+            name: this.buscarUsuario // ?name=Adrian
+          }
+        });
+  }
+
+  buscarUsuarios() {
     this.userJphService
       .buscarTodos({
         name: this.buscarUsuario
@@ -49,5 +68,7 @@ export class RutaUsuarioComponent implements OnInit {
         }
       )
   }
-  gestionarUsuario(idUsuario:number){}
+
+  gestionarUsuario(idUsuario: number) {
+  }
 }
