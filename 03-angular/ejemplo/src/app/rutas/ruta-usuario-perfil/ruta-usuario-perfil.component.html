@@ -9,9 +9,21 @@
 <button id="basic" type="button"
         color="accent"
         mat-raised-button
-        (click)="guardar()">
+        (click)="abrirDialogo()">
   Basic button
 </button>
+
+<div class="btn-group btn-group-toggle">
+  <label class="btn-primary" ngbButtonLabel>
+    <input type="checkbox" ngbButton [(ngModel)]="model.left"> Left (pre-checked)
+  </label>
+  <label class="btn-primary" ngbButtonLabel>
+    <input type="checkbox" ngbButton [(ngModel)]="model.middle"> Middle
+  </label>
+  <label class="btn-primary" ngbButtonLabel>
+    <input type="checkbox" ngbButton [(ngModel)]="model.right"> Right
+  </label>
+</div>
 
 <div class="container" *ngIf="formGroup">
   <form [formGroup]="formGroup">
