@@ -16,13 +16,6 @@ export class AppComponent {
 
   eventoHola() {
     this.websocketsService.ejecutarEventoHola()
-      .subscribe({
-        next: (data) => {
-          console.log({data, mensaje: 'Respuesta hola'})
-        },
-        error: (error) => {
-          console.error({error})
-        }
-      })
+
   }
 }
