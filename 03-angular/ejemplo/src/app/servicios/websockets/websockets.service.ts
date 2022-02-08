@@ -9,9 +9,19 @@ export class WebsocketsService {
   constructor(private socket: Socket) {
   }
 
-  ejecutarEventoHola(): Observable<any> {
-    return this.socket.emit('hola', {
+  ejecutarEventoHola() {
+    // Emitimos un evento
+    const resp = this.socket.
+    emit(
+      'hola', {
       nombre: 'Adrian'
     });
+    console.log(resp);
   }
+
+  escucharEventoHola(){
+    return this.socket
+      .fromEvent('escucharEventoHola');
+  }
+
 }
