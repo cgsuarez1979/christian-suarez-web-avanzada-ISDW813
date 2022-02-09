@@ -57,7 +57,7 @@ export class EventosGateway {
             salaId: message.salaId
         } as any;
         socket.broadcast.to(message.salaId).emit('escucharEventoMensajeSala', nuevoMensaje);
-        return ok;
+        return 'ok';
     }
 
 }
