@@ -29,6 +29,12 @@ export class RutaSalaComponent implements OnInit, OnDestroy {
   }
 
   enviarMensaje() {
+    this.arregloMensajes.push({
+      mensaje: this.mensaje,
+      salaId: +this.salaId,
+      nombre: this.nombre,
+      posicion: 'izq'
+    })
     this.websocketsService.ejecutarEventoEnviarMensaje(
       +this.salaId, this.nombre, this.mensaje
     );
@@ -83,8 +89,12 @@ export class RutaSalaComponent implements OnInit, OnDestroy {
           }
         }
       );
-    this.arregloSuscripciones.push(respEscucharEventoUnirseSala);
-    this.arregloSuscripciones.push(respEscucharEventoMensajeSala);
+    this.arregloSuscripciones.push(
+      respEscucharEventoUnirseSala
+    );
+    this.arregloSuscripciones.push(
+      respEscucharEventoMensajeSala
+    );
     this.websocketsService.ejecutarEventoUnirseSala(+this.salaId, this.nombre);
   }
 
