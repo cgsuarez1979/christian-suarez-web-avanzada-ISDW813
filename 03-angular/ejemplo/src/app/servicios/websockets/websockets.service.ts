@@ -11,17 +11,41 @@ export class WebsocketsService {
 
   ejecutarEventoHola() {
     // Emitimos un evento
-    const resp = this.socket.
-    emit(
+    const resp = this.socket.emit(
       'hola', {
-      nombre: 'Adrian'
-    });
+        nombre: 'Adrian'
+      });
     console.log(resp);
   }
 
-  escucharEventoHola(){
+  escucharEventoHola() {
     return this.socket
       .fromEvent('escucharEventoHola');
+  }
+
+  ejecutarEventoUnirseSala(salaId: number, nombre: string) {
+    // Emitimos un evento
+    this.socket.emit(
+      'unirseSala', {
+        nombre,
+        salaId
+      });
+  }
+  escucharEventoUnirseSala(){
+    return this.socket.fromEvent('escucharEventoUnirseSala')
+  }
+
+  ejecutarEventoEnviarMensaje(salaId: number, nombre: string, mensaje: string) {
+    // Emitimos un evento
+    this.socket.emit(
+      'enviarMensaje', {
+        nombre,
+        salaId,
+        mensaje
+      });
+  }
+  escucharEventoMensajeSala(){
+    return this.socket.fromEvent('escucharEventoMensajeSala')
   }
 
 }
