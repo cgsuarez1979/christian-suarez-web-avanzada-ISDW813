@@ -61,7 +61,7 @@ const routes: Routes = [
     component: RutaLoginComponent,
   },
   {
-    path: ':salaId/sala',
+    path: ':salaId/sala/:nombre',
     component: RutaSalaComponent,
   },
   {
