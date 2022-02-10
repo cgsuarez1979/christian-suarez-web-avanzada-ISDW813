@@ -68,8 +68,9 @@ export class RutaSalaComponent implements OnInit, OnDestroy {
               mensaje: data.mensaje,
               salaId: data.salaId,
               nombre: data.nombre,
-              posicion: data.nombre === this.nombre ? 'izq' : 'der'
-            })
+              posicion: data.nombre === this.nombre
+                ? 'izq' : 'der'
+            });
           },
           error: (error) => {
             console.error({error});
